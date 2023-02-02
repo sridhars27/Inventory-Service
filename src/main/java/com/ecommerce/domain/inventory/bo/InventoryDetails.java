@@ -1,5 +1,6 @@
 package com.ecommerce.domain.inventory.bo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class InventoryDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id",updatable = false, nullable = false, columnDefinition="UUID")
     private UUID id;
 
     @Column(name = "product_id")

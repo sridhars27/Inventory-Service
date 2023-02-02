@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.Optional;
+
 @DataJpaTest
 public class InventoryManagementDaoTest {
 
@@ -20,7 +22,7 @@ public class InventoryManagementDaoTest {
     }
 
     @Test
-    public void addAvailability_success() {
+    private void addAvailability_success() {
         InventoryDetails inventoryDetails = repository.save(InventoryDetails.builder()
                 .availableQuantity(5)
                 .productId("TEST123")
@@ -33,14 +35,14 @@ public class InventoryManagementDaoTest {
     }
 
     @Test
-    public void find_inventoryDetails_by_product_id() {
+    private void find_inventoryDetails_by_product_id() {
         repository.save(InventoryDetails.builder()
                 .availableQuantity(5)
                 .productId("TEST123")
                 .build());
-        InventoryDetails inventoryDetails = repository.findByProductId("TEST123");
+        Optional<InventoryDetails> inventoryDetails = repository.findByProductId("TEST123");
 
-        assertEquals("TEST123", inventoryDetails.getProductId());
-        assertEquals(5, inventoryDetails.getAvailableQuantity());
+        assertEquals("TEST123", inventoryDetails.get().getProductId());
+        assertEquals(5, inventoryDetails.get().getAvailableQuantity());
     }
 }
