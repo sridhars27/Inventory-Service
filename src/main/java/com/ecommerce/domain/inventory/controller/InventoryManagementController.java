@@ -44,42 +44,39 @@ public class InventoryManagementController {
 
     private static class InventoryDetailRequest {
 
-        private String product_id;
-
-        private int available_quantity;
+        private InventoryDetails inventoryDetails = InventoryDetails.builder().build();
 
         public void setProduct_id(String product_id) {
-            this.product_id = product_id;
+            inventoryDetails.setProductId(product_id);
         }
 
         public void setAvailable_quantity(int available_quantity) {
-            this.available_quantity = available_quantity;
+
+            inventoryDetails.setAvailableQuantity(available_quantity);
         }
 
         public InventoryDetails getInventoryDetails() {
-            return InventoryDetails.builder()
-                    .productId(this.product_id)
-                    .availableQuantity(this.available_quantity)
-                    .build();
+            return inventoryDetails;
         }
     }
 
-    class InventoryDetailResponse {
-        private String product_id;
+    private class InventoryDetailResponse {
 
-        private int available_quantity;
+        private String productId;
+
+        private int availableQuantity;
 
         public InventoryDetailResponse(InventoryDetails inventoryDetails) {
-            this.product_id = inventoryDetails.getProductId();
-            this.available_quantity = inventoryDetails.getAvailableQuantity();
+            this.productId = inventoryDetails.getProductId();
+            this.availableQuantity = inventoryDetails.getAvailableQuantity();
         }
 
         public String getProduct_id() {
-            return product_id;
+            return productId;
         }
 
         public int getAvailable_quantity() {
-            return available_quantity;
+            return availableQuantity;
         }
     }
 
