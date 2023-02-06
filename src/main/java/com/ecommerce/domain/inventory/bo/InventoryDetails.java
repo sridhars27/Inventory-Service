@@ -30,7 +30,7 @@ public class InventoryDetails {
     @Column(name = "id",updatable = false, nullable = false, columnDefinition="UUID")
     private UUID id;
 
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private String productId;
 
     @Column(name = "available_quantity")

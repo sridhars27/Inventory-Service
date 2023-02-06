@@ -22,7 +22,7 @@ public class InventoryManagementDaoTest {
     }
 
     @Test
-    private void addAvailability_success() {
+    public void addAvailability_success() {
         InventoryDetails inventoryDetails = repository.save(InventoryDetails.builder()
                 .availableQuantity(5)
                 .productId("TEST123")
@@ -35,7 +35,7 @@ public class InventoryManagementDaoTest {
     }
 
     @Test
-    private void find_inventoryDetails_by_product_id() {
+    public void find_inventoryDetails_by_product_id() {
         repository.save(InventoryDetails.builder()
                 .availableQuantity(5)
                 .productId("TEST123")

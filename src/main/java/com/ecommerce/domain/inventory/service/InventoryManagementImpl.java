@@ -9,23 +9,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class InventoryManagementService {
+public class InventoryManagementImpl {
 
     @Autowired
     InventoryManagementDao inventoryManagementDao;
 
     @Transactional
     public InventoryDetails addAvailability(InventoryDetails inventoryDetails) {
-        Optional<InventoryDetails> dbResponse = findByProductId(inventoryDetails.getProductId());
-       if( dbResponse.isPresent()){
-           dbResponse.get().setAvailableQuantity(dbResponse.get().getAvailableQuantity()
-                   + inventoryDetails.getAvailableQuantity());
-           return inventoryManagementDao.save(dbResponse.get());
-       }
+        Optional<InventoryDetails> dbResponse = inventoryManagementDao.findByProductId(inventoryDetails.getProductId());
+        if (dbResponse.isPresent()) {
+            dbResponse.get().setAvailableQuantity(dbResponse.get().getAvailableQuantity()
+                    + inventoryDetails.getAvailableQuantity());
+            return inventoryManagementDao.save(dbResponse.get());
+        }
         return inventoryManagementDao.save(inventoryDetails);
-    }
-
-    public Optional<InventoryDetails> findByProductId(final String productId) {
-        return inventoryManagementDao.findByProductId(productId);
     }
 }

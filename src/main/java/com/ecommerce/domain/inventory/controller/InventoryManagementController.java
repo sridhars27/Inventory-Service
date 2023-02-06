@@ -1,8 +1,9 @@
 package com.ecommerce.domain.inventory.controller;
 
 import com.ecommerce.domain.inventory.bo.InventoryDetails;
+import com.ecommerce.domain.inventory.dao.InventoryManagementDao;
 import com.ecommerce.domain.inventory.exception.ProductNotfoundException;
-import com.ecommerce.domain.inventory.service.InventoryManagementService;
+import com.ecommerce.domain.inventory.service.InventoryManagementImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,25 +21,28 @@ import java.util.Optional;
 public class InventoryManagementController {
 
     @Autowired
-    InventoryManagementService inventoryManagementService;
+    InventoryManagementImpl inventoryManagementImpl;
+
+    @Autowired
+    InventoryManagementDao inventoryManagementDao;
 
     @PostMapping("/product")
     public ResponseEntity<InventoryDetailResponse> addAvailability(@RequestBody InventoryDetailRequest inventoryDetailRequest) {
-        InventoryDetails response = inventoryManagementService.addAvailability(inventoryDetailRequest.getInventoryDetails());
+        InventoryDetails response = inventoryManagementImpl.addAvailability(inventoryDetailRequest.getInventoryDetails());
         return new ResponseEntity<>(new InventoryDetailResponse(response), HttpStatus.CREATED);
 
     }
 
     @GetMapping("/product/{productId}")
     public ResponseEntity<InventoryDetailResponse> checkInventory(@PathVariable final String productId) {
-        Optional<InventoryDetails> response = inventoryManagementService.findByProductId(productId);
-        if(!response.isPresent()){
+        Optional<InventoryDetails> response = inventoryManagementDao.findByProductId(productId);
+        if (!response.isPresent()) {
             throw new ProductNotfoundException("No Inventory details found for the given Id");
         }
         return new ResponseEntity<>(new InventoryDetailResponse(response.get()), HttpStatus.OK);
     }
 
-     static class InventoryDetailRequest {
+    private static class InventoryDetailRequest {
 
         private String product_id;
 
@@ -60,7 +64,7 @@ public class InventoryManagementController {
         }
     }
 
-     class InventoryDetailResponse {
+    class InventoryDetailResponse {
         private String product_id;
 
         private int available_quantity;
