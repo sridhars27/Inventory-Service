@@ -5,10 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface InventoryManagementDao extends JpaRepository<InventoryDetails, UUID> {
+public interface InventoryManagementDao extends JpaRepository<InventoryDetails, String> {
 
 
    Optional<InventoryDetails> findByProductId(final String productId);
