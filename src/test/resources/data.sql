@@ -1,0 +1,1 @@
+INSERT INTO inventory_details (Id, product_id, available_quantity) VALUES ('2D1EBC5B7D2741979CF0E84451C5BBB1', 'TEST123', '2');

@@ -1,19 +1,18 @@
 package com.ecommerce.domain.inventory.bo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 import lombok.Builder;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.Id;
-import javax.persistence.GenerationType;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "inventory_details")
@@ -25,10 +24,13 @@ import java.util.UUID;
 public class InventoryDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @Column(name = "id",updatable = false, nullable = false)
+    private String id;
 
-    @Column(name = "product_id")
+
+    @Column(name = "product_id", nullable = false)
     private String productId;
 
     @Column(name = "available_quantity")

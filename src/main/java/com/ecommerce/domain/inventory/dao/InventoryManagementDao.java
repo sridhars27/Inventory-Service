@@ -4,11 +4,11 @@ import com.ecommerce.domain.inventory.bo.InventoryDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
+import java.util.Optional;
 
 @Repository
-public interface InventoryManagementDao extends JpaRepository<InventoryDetails, UUID> {
+public interface InventoryManagementDao extends JpaRepository<InventoryDetails, String> {
 
 
-    InventoryDetails findByProductId(final String productId);
+   Optional<InventoryDetails> findByProductId(final String productId);
 }
