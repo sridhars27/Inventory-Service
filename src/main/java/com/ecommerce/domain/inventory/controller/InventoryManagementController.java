@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +48,6 @@ public class InventoryManagementController {
         }
         return new ResponseEntity<>(new InventoryDetailResponse(response.get()), HttpStatus.OK);
     }
-
 
     public static class InventoryDetailRequest {
 
